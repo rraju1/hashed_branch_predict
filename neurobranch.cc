@@ -34,7 +34,7 @@ NeuroBP::NeuroBP(const NeuroBPParams *params)
   // weights per neuron (historyRegister per neuron)
   weightsTable.assign(perceptronCount,
 					  std::vector<unsigned>(globalPredictorSize + 1, 0));
-  pastPCTable.assign(1, std::vector<unsigned>(4096, 0));
+ // pastPCTable.assign(1, std::vector<unsigned>(4096));
   
 }
 
@@ -119,8 +119,12 @@ NeuroBP::update(ThreadID tid, Addr branch_addr, bool taken,
   
   int curPerceptron = branch_addr % perceptronCount; 
   unsigned thread_history = globalHistory[tid];
-  pastPCTable = pastPCTable << 1;
-  pastPCTable[0] = branch_addr; 
+
+//UPDATE PAST PC TABLE
+ pastPCTable.insert(pastPCTable.begin(), branch_addr);
+  // only maintains the last H (globalPredictorSize) addresses in history
+  if (pastPCTable.size() > (globalPredictorSize/2)) pastPCTable.pop_back();
+
   // the prediction is an indicator of the signed weighted sum
   int y_out = weightsTable[curPerceptron][0];
   for (int i = 1; i <= globalPredictorSize; i++) {
