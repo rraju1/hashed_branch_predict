@@ -123,6 +123,8 @@ private:
   
   /** Perceptron weights for neural branch predictor */
   std::vector<std::vector<unsigned>> weightsTable;
+
+  std::vector<std::vector<Addr>> pastPCTable;
 };
 
 #endif

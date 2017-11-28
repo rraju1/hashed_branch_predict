@@ -29,14 +29,13 @@ NeuroBP::NeuroBP(const NeuroBPParams *params)
   // number of hashed perceptrons, i.e. each
   // one act as a local predictor corresponding to local history
   perceptronCount = 20;
-
-  // Perceptron theta threshold parameter empirically determined in the
-  // fast neural branch predictor paper to be 1.93 * history + 14
-  theta = 1.93 * globalPredictorSize + 14;
-  
+  // change theta val
+  theta = 1.93 * globalPredictorSize + (globalPredictorSize/2);
   // weights per neuron (historyRegister per neuron)
   weightsTable.assign(perceptronCount,
 					  std::vector<unsigned>(globalPredictorSize + 1, 0));
+  pastPCTable.assign(1, std::vector<unsigned>(4096, 0));
+  
 }
 
 inline
@@ -67,15 +66,26 @@ NeuroBP::lookup(ThreadID tid, Addr branch_addr, void * &bp_history)
 {
   // the current perceptron weights correspond to the ones
   // being hashed from the program counter and number of perceptrons
-  int curPerceptron = branch_addr % perceptronCount; 
+  int curPerceptron = branch_addr % perceptronCount;
+  
   unsigned thread_history = globalHistory[tid];
   
   // the prediction is an indicator of the signed weighted sum
   int y_out = weightsTable[curPerceptron][0];
   for (int i = 1; i <= globalPredictorSize; i++) {
-	if ((thread_history >> (i - 1)) & 1)
-	  y_out += weightsTable[curPerceptron][i];
-	else y_out -= weightsTable[curPerceptron][i];
+	if(i >= globalPredictorSize/2)
+	{
+		int curPerceptron2 = pastPCTable[i] % perceptronCount;
+		if ((thread_history >> (i - 1)) & 1)
+			y_out += weightsTable[curPerceptron2][i];
+		else y_out -= weightsTable[curPerceptron2][i];		
+	}
+	else
+	{
+		if ((thread_history >> (i - 1)) & 1)
+		  y_out += weightsTable[curPerceptron][i];
+		else y_out -= weightsTable[curPerceptron][i];
+	}
   }
   
   bool prediction = (y_out >= 0);
@@ -109,7 +119,8 @@ NeuroBP::update(ThreadID tid, Addr branch_addr, bool taken,
   
   int curPerceptron = branch_addr % perceptronCount; 
   unsigned thread_history = globalHistory[tid];
-  
+  pastPCTable = pastPCTable << 1;
+  pastPCTable[0] = branch_addr; 
   // the prediction is an indicator of the signed weighted sum
   int y_out = weightsTable[curPerceptron][0];
   for (int i = 1; i <= globalPredictorSize; i++) {
