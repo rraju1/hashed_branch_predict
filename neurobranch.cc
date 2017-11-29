@@ -128,35 +128,59 @@ NeuroBP::update(ThreadID tid, Addr branch_addr, bool taken,
   int curPerceptron = branch_addr % perceptronCount;
   unsigned thread_history = globalHistory[tid];
 
-  //UPDATE PAST PC TABLE
-   pastPCTable.insert(pastPCTable.begin(), branch_addr);
-    // only maintains the last H (globalPredictorSize) addresses in history
-  if (pastPCTable.size() > (globalPredictorSize/2)) pastPCTable.pop_back();
-
-
   // the prediction is an indicator of the signed weighted sum
   int y_out = weightsTable[curPerceptron][0];
   for (int i = 1; i <= globalPredictorSize; i++) {
-	if ((thread_history >> (i - 1)) & 1)
-	  y_out += weightsTable[curPerceptron][i];
-	else y_out -= weightsTable[curPerceptron][i];
+    if(i >= globalPredictorSize/2)
+    {
+      int curPerceptron2 = pastPCTable[i] % perceptronCount;
+      if ((thread_history >> (i - 1)) & 1)
+        y_out += weightsTable[curPerceptron2][i];
+      else y_out -= weightsTable[curPerceptron2][i];
+    }
+    else
+    {
+      if ((thread_history >> (i - 1)) & 1)
+        y_out += weightsTable[curPerceptron][i];
+      else y_out -= weightsTable[curPerceptron][i];
+    }
   }
+
+
+
+
 
   // If this is a misprediction, restore the speculatively
   // updated state (global history register and local history)
   // and update again.
   if (squashed || (abs(y_out) <= theta)) {
-	if (taken) weightsTable[curPerceptron][0] += 1;
-	else       weightsTable[curPerceptron][0] -= 1;
+    	if (taken) weightsTable[curPerceptron][0] += 1;
+    	else       weightsTable[curPerceptron][0] -= 1;
 
-	// Have to update the corresponding weights to negatively reinforce
-	// the outcome of having predicted incorrectly
-	for (int i = 1; i < globalPredictorSize; i++) {
-	  if (((thread_history >> (i - 1)) & 1) == taken)
-		weightsTable[curPerceptron][i]    += 1;
-	  else weightsTable[curPerceptron][i] -= 1;
-	}
+    	// Have to update the corresponding weights to negatively reinforce
+    	// the outcome of having predicted incorrectly
+
+      for (int i = 1; i <= globalPredictorSize; i++) {
+        if(i >= globalPredictorSize/2)
+        {
+          int curPerceptron2 = pastPCTable[i] % perceptronCount;
+          if (((thread_history >> (i - 1)) & 1) == taken)
+      		  weightsTable[curPerceptron2][i]    += 1;
+      	  else weightsTable[curPerceptron2][i] -= 1;
+        }
+        else
+        {
+          if (((thread_history >> (i - 1)) & 1) == taken)
+      		  weightsTable[curPerceptron][i]    += 1;
+      	  else weightsTable[curPerceptron][i] -= 1;
+      }
+    }
   }
+
+  //UPDATE PAST PC TABLE
+  pastPCTable.insert(pastPCTable.begin(), branch_addr);
+  // only maintains the last H (globalPredictorSize) addresses in history
+  if (pastPCTable.size() > (globalPredictorSize/2)) pastPCTable.pop_back();
 
   // Global history restore and update
   globalHistory[tid] = (globalHistory[tid] << 1) | taken;
