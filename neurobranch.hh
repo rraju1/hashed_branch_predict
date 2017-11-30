@@ -74,6 +74,8 @@ public:
 
   unsigned getGHR(ThreadID tid, void *bp_history) const;
 
+  unsigned hashghistpath(ThreadID tid, unsigned shift);
+
 private:
   /** Updates global history as taken. */
   inline void updateGlobalHistTaken(ThreadID tid);

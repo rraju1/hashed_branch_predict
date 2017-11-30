@@ -1,10 +1,7 @@
 /*****************************************************************
  * File: neurobranch.cc
- * Created on: 13-May-2017
- * Author: Yash Patel
- * Description: Perceptron branch predictor based on the one
- * implemented in the original neural predictor paper (i.e.
- * without integrating paths).
+ * Created on: 1-Nov-2017
+ * Author: Ravi Raju Ayush Gupta Vijaytarang 
  ****************************************************************/
 
 #include "cpu/pred/neurobranch.hh"
@@ -37,7 +34,7 @@ NeuroBP::NeuroBP(const NeuroBPParams *params)
   // weights per neuron (historyRegister per neuron)
   weightsTable.assign(perceptronCount,
 					  std::vector<unsigned>(globalPredictorSize + 1, 0));
-  pastPCTable.assign(globalPredictorSize/2, 0);
+  pastPCTable.assign(globalPredictorSize, 0);
 }
 
 inline
@@ -72,31 +69,36 @@ NeuroBP::lookup(ThreadID tid, Addr branch_addr, void * &bp_history)
   unsigned thread_history = globalHistory[tid];
 
   // the prediction is an indicator of the signed weighted sum
-  /*int y_out = weightsTable[curPerceptron][0];
+  int y_out = weightsTable[curPerceptron][0];
+  
   for (int i = 1; i <= globalPredictorSize; i++) {
 	if ((thread_history >> (i - 1)) & 1)
 	  y_out += weightsTable[curPerceptron][i];
 	else y_out -= weightsTable[curPerceptron][i];
-}*/
-// the prediction is an indicator of the signed weighted sum
-  int y_out = weightsTable[curPerceptron][0];
-  for (int i = 1; i <= globalPredictorSize; i++) {
-	if(i >= globalPredictorSize/2)
-	{
-		int curPerceptron2 = pastPCTable[i] % perceptronCount;
-		if ((thread_history >> (i - 1)) & 1)
-			y_out += weightsTable[curPerceptron2][i];
-		else y_out -= weightsTable[curPerceptron2][i];
-	}
-	else
-	{
-		if ((thread_history >> (i - 1)) & 1)
-		  y_out += weightsTable[curPerceptron][i];
-		else y_out -= weightsTable[curPerceptron][i];
-	}
 }
-
-  bool prediction = (y_out >= 0);
+// the prediction is an indicator of the signed weighted sum
+  int y_out1 = weightsTable[curPerceptron][0];
+  for (int i = 1; i <= globalPredictorSize; i++) {
+		
+	int curPerceptron2 = pastPCTable[i] % perceptronCount;
+		if ((thread_history >> (i - 1)) & 1)
+			y_out1 += weightsTable[curPerceptron2][i];
+		else y_out1 -= weightsTable[curPerceptron2][i];
+	
+}
+ int y_out2 = weightsTable[curPerceptron][0];
+ for(int i = 0; i < 256; i++)
+ {	
+	int curPerceptron3 = hashghistpath(tid, (unsigned)i) % perceptronCount;
+	for(int j = 0; j < 32; j++)
+	{
+		if ((thread_history >> (i*32 + j)) & 1)
+				y_out2 += weightsTable[curPerceptron3][i * 32 + j + 1];
+			else y_out2 -= weightsTable[curPerceptron3][i * 32 + j + 1];
+	}
+ } 
+ int y_out_avg = (y_out + y_out1 + y_out2)/3;
+  bool prediction = (y_out_avg >= 0);
 
   // Create BPHistory and pass it back to be recorded.
   BPHistory *history       = new BPHistory;
@@ -106,6 +108,29 @@ NeuroBP::lookup(ThreadID tid, Addr branch_addr, void * &bp_history)
 
   return prediction;
 }
+
+unsigned NeuroBP::hashghistpath(ThreadID tid, unsigned shift)
+{
+	unsigned thread_history = globalHistory[tid];
+	unsigned num = 0;
+	for(int i = 0; i < 32; i++)
+	{
+		num += (thread_history & 1);
+		thread_history = thread_history >> 1;
+		num = num << 1;			
+	}
+	unsigned temp = 0;
+	for(int i = 0; i < 32; i++)
+	{
+		temp += pastPCTable[i + 32 * shift];
+		temp = temp << 1;	
+	}
+	temp ^= num;
+	
+	return temp;	
+}
+
+
 
 void
 NeuroBP::uncondBranch(ThreadID tid, Addr pc, void * &bp_history)
@@ -130,30 +155,41 @@ NeuroBP::update(ThreadID tid, Addr branch_addr, bool taken,
 
   // the prediction is an indicator of the signed weighted sum
   int y_out = weightsTable[curPerceptron][0];
+  
   for (int i = 1; i <= globalPredictorSize; i++) {
-    if(i >= globalPredictorSize/2)
-    {
-      int curPerceptron2 = pastPCTable[i] % perceptronCount;
-      if ((thread_history >> (i - 1)) & 1)
-        y_out += weightsTable[curPerceptron2][i];
-      else y_out -= weightsTable[curPerceptron2][i];
-    }
-    else
-    {
-      if ((thread_history >> (i - 1)) & 1)
-        y_out += weightsTable[curPerceptron][i];
-      else y_out -= weightsTable[curPerceptron][i];
-    }
-  }
+	if ((thread_history >> (i - 1)) & 1)
+	  y_out += weightsTable[curPerceptron][i];
+	else y_out -= weightsTable[curPerceptron][i];
+}
+// the prediction is an indicator of the signed weighted sum
+  int y_out1 = weightsTable[curPerceptron][0];
+  for (int i = 1; i <= globalPredictorSize; i++) {
+		
+	int curPerceptron2 = pastPCTable[i] % perceptronCount;
+		if ((thread_history >> (i - 1)) & 1)
+			y_out1 += weightsTable[curPerceptron2][i];
+		else y_out1 -= weightsTable[curPerceptron2][i];
+	
+}
 
-
-
-
+ int y_out2 = weightsTable[curPerceptron][0];
+ for(int i = 0; i < 256; i++)
+ {	
+	int curPerceptron3 = hashghistpath(tid, (unsigned)i) % perceptronCount;
+	for(int j = 0; j < 32; j++)
+	{
+		if ((thread_history >> (i*32 + j)) & 1)
+				y_out2 += weightsTable[curPerceptron3][i * 32 + j + 1];
+			else y_out2 -= weightsTable[curPerceptron3][i * 32 + j + 1];
+	}
+ } 
+int y_out_avg = (y_out + y_out1 + y_out2)/3 ;
+  
 
   // If this is a misprediction, restore the speculatively
   // updated state (global history register and local history)
   // and update again.
-  if (squashed || (abs(y_out) <= theta)) {
+  if (squashed || (abs(y_out_avg) <= theta)) {
     	if (taken) weightsTable[curPerceptron][0] += 1;
     	else       weightsTable[curPerceptron][0] -= 1;
 
@@ -161,20 +197,29 @@ NeuroBP::update(ThreadID tid, Addr branch_addr, bool taken,
     	// the outcome of having predicted incorrectly
 
       for (int i = 1; i <= globalPredictorSize; i++) {
-        if(i >= globalPredictorSize/2)
-        {
+                
           int curPerceptron2 = pastPCTable[i] % perceptronCount;
           if (((thread_history >> (i - 1)) & 1) == taken)
       		  weightsTable[curPerceptron2][i]    += 1;
       	  else weightsTable[curPerceptron2][i] -= 1;
-        }
-        else
-        {
+        
+               
           if (((thread_history >> (i - 1)) & 1) == taken)
       		  weightsTable[curPerceptron][i]    += 1;
       	  else weightsTable[curPerceptron][i] -= 1;
-      }
+      
     }
+    for(int i = 0; i < 256; i++)
+    { 	
+	int curPerceptron3 = hashghistpath(tid, i) % perceptronCount;
+	for(int j = 0; j < 32; j++)
+	{
+		if (((thread_history >> (i*32 + j)) & 1) == taken)
+      		  weightsTable[curPerceptron3][i * 32 + j + 1]    += 1;
+      	  	else weightsTable[curPerceptron3][i * 32 + j + 1] -= 1;
+		
+	}
+    } 
   }
 
   //UPDATE PAST PC TABLE
