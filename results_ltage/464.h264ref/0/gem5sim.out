@@ -1,0 +1,15 @@
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 compiled Dec  3 2017 13:31:44
+gem5 started Dec  4 2017 18:34:36
+gem5 executing on hellokitty-6, pid 289445
+command line: /research/rraju2/ece752/gem5/build/ARM/gem5.opt /research/rraju2/ece752/gem5/configs/example/se.py --cpu-type=O3_ARM_v7a_3 --caches --l2cache --mem-size=2GB --cpu-clock=2GHz --sys-clock=2GHz --maxinsts=1000000000 --fast-forward=1000000000 --cmd=464.h264ref '--options=-d foreman_train_encoder_baseline.cfg' --output=464.h264ref.stdout --errout=464.h264ref.stderr
+
+info: Standard input is not a terminal, disabling listeners.
+Global frequency set at 1000000000000 ticks per second
+Switch at instruction count:1000000000
+Switched CPUS @ tick 645365402000
+switching cpus
+**** REAL SIMULATION ****
+Exiting @ tick 963669894000 because a thread reached the max instruction count
