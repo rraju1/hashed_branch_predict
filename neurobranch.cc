@@ -35,6 +35,11 @@ NeuroBP::NeuroBP(const NeuroBPParams *params)
   weightsTable.assign(perceptronCount,
 					  std::vector<unsigned>(globalPredictorSize + 1, 0));
   pastPCTable.assign(globalPredictorSize, 0);
+  tc = 0;
+  speed = 9;
+  depth = 256;
+  recency_stack.assign(depth, 0);
+
 }
 
 inline
@@ -97,7 +102,50 @@ NeuroBP::lookup(ThreadID tid, Addr branch_addr, void * &bp_history)
 			else y_out2 -= weightsTable[curPerceptron3][i * 32 + j + 1];
 	}
  } 
- int y_out_avg = (y_out + y_out1 + y_out2)/3;
+
+
+//RECENCY POS 
+
+int y_out3 = weightsTable[curPerceptron][0];
+int curPerceptron4 = hash_recency(tid, depth) % perceptronCount;
+for (int i = 1; i <= globalPredictorSize; i++) {
+	if ((thread_history >> (i - 1)) & 1)
+	  y_out3 += weightsTable[curPerceptron4][i];
+	else y_out3 -= weightsTable[curPerceptron4][i];
+}
+
+	  
+
+
+//RECENCY POS ENDS
+
+ //int y_out_avg = (y_out + y_out1 + y_out2)/3;
+int y_out_avg;
+
+
+if (abs(y_out) > abs(y_out1)) {
+	if (abs(y_out) > abs(y_out2)) y_out_avg = y_out;
+	else y_out_avg = y_out2;
+} else {
+	if (abs(y_out1) > abs(y_out2)) y_out_avg = y_out1;
+	else y_out_avg = y_out2;
+}
+
+if (y_out3 > y_out_avg) y_out_avg = y_out3;
+
+/*
+bool prediction;
+bool a = (y_out >=  0);
+bool b = (y_out1 >=  0);
+bool c = (y_out2 >=  0);
+int cnt = 0; 
+if (a) cnt++;
+if (b) cnt++;
+if (c) cnt++;
+if (cnt >=2) prediction = 1;
+else prediction = 0;
+*/
+
   bool prediction = (y_out_avg >= 0);
 
   // Create BPHistory and pass it back to be recorded.
@@ -183,8 +231,29 @@ NeuroBP::update(ThreadID tid, Addr branch_addr, bool taken,
 			else y_out2 -= weightsTable[curPerceptron3][i * 32 + j + 1];
 	}
  } 
-int y_out_avg = (y_out + y_out1 + y_out2)/3 ;
-  
+
+  int y_out3 = weightsTable[curPerceptron][0];
+  int curPerceptron4 = hash_recency(tid, depth) % perceptronCount;
+
+  for (int i = 1; i <= globalPredictorSize; i++) {
+	if ((thread_history >> (i - 1)) & 1)
+	  y_out3 += weightsTable[curPerceptron4][i];
+	else y_out3 -= weightsTable[curPerceptron4][i];
+}
+
+//int y_out_avg = (y_out + y_out1 + y_out2)/3 ;
+  int y_out_avg;
+
+
+if (abs(y_out) > abs(y_out1)) {
+	if (abs(y_out) > abs(y_out2)) y_out_avg = y_out;
+	else y_out_avg = y_out2;
+} else {
+	if (abs(y_out1) > abs(y_out2)) y_out_avg = y_out1;
+	else y_out_avg = y_out2;
+}
+
+if (y_out3 > y_out_avg) y_out_avg = y_out3;
 
   // If this is a misprediction, restore the speculatively
   // updated state (global history register and local history)
@@ -195,19 +264,23 @@ int y_out_avg = (y_out + y_out1 + y_out2)/3 ;
 
     	// Have to update the corresponding weights to negatively reinforce
     	// the outcome of having predicted incorrectly
-
+     
       for (int i = 1; i <= globalPredictorSize; i++) {
                 
           int curPerceptron2 = pastPCTable[i] % perceptronCount;
           if (((thread_history >> (i - 1)) & 1) == taken)
-      		  weightsTable[curPerceptron2][i]    += 1;
+ 		weightsTable[curPerceptron2][i]    += 1;
       	  else weightsTable[curPerceptron2][i] -= 1;
         
                
           if (((thread_history >> (i - 1)) & 1) == taken)
       		  weightsTable[curPerceptron][i]    += 1;
       	  else weightsTable[curPerceptron][i] -= 1;
-      
+
+          if (((thread_history >> (i - 1)) & 1) == taken)
+      		  weightsTable[curPerceptron4][i]    += 1;
+      	  else weightsTable[curPerceptron4][i] -= 1;
+   
     }
     for(int i = 0; i < 256; i++)
     { 	
@@ -220,6 +293,10 @@ int y_out_avg = (y_out + y_out1 + y_out2)/3 ;
 		
 	}
     } 
+
+
+
+
   }
 
   //UPDATE PAST PC TABLE
@@ -230,7 +307,57 @@ int y_out_avg = (y_out + y_out1 + y_out2)/3 ;
   // Global history restore and update
   globalHistory[tid] = (globalHistory[tid] << 1) | taken;
   globalHistory[tid] &= historyRegisterMask;
+
+ //update recency stack
+ insert_recency(tid, branch_addr);
+//theta_setting (tid, !squashed, abs(y_out_avg));
 }
+/*
+void NeuroBP::theta_setting (ThreadID tid, bool correct, int a) {
+		if (!correct) {
+			tc++;
+			if (tc >= speed) {
+				theta++;
+				tc = 0;
+			}
+		}
+		if (correct && a < theta) {
+			tc--;
+			if (tc <= -speed) {
+				theta--;
+				tc = 0;
+			}
+		}
+}
+*/
+//RECENCY POS
+unsigned NeuroBP::hash_recency(ThreadID tid, int depth) {
+			unsigned x = 0, k = 0;
+			for (int i=0; i<depth; i++) {
+				x ^= (!!(recency_stack[i] & 1)) << k;
+				k++;
+				k %= 32;
+			}
+			return x;	
+	}
+//RECENCY POS ENDS
+
+//INSERT RECENCY
+void NeuroBP::insert_recency (ThreadID tid, unsigned pc) {
+		int i = 0;
+		for (i=0; i<depth; i++) {
+			if (recency_stack[i] == pc) break;
+		}
+		if (i == depth) {
+			i = depth-1;
+			recency_stack[i] = pc;
+		}
+		int j;
+		unsigned b = recency_stack[i];
+		for (j=i; j>=1; j--) recency_stack[j] = recency_stack[j-1];
+		recency_stack[0] = b;
+	}
+//INSERT RECENCY ENDS
 
 void
 NeuroBP::squash(ThreadID tid, void *bp_history)

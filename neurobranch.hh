@@ -75,6 +75,9 @@ public:
   unsigned getGHR(ThreadID tid, void *bp_history) const;
 
   unsigned hashghistpath(ThreadID tid, unsigned shift);
+  //void theta_setting(ThreadID tid, bool correct, int a);  
+ void insert_recency (ThreadID tid, unsigned pc);
+unsigned hash_recency(ThreadID tid, int depth) ;
 
 private:
   /** Updates global history as taken. */
@@ -122,11 +125,16 @@ private:
   /** Perceptron theta threshold parameter empirically estimated in the
    fast neural branch predictor paper to be 1.93 * history + 14 */
   unsigned theta;
+  unsigned speed;
+  int tc;
+ int depth;
   
   /** Perceptron weights for neural branch predictor */
   std::vector<std::vector<unsigned>> weightsTable;
 
   std::vector<unsigned> pastPCTable;
+std::vector<unsigned> recency_stack;
+
 };
 
 #endif
