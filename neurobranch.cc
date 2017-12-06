@@ -104,7 +104,7 @@ NeuroBP::lookup(ThreadID tid, Addr branch_addr, void * &bp_history)
  } 
 
 
-//RECENCY POS 
+//RECENCY 
 
 int y_out3 = weightsTable[curPerceptron][0];
 int curPerceptron4 = hash_recency(tid, depth) % perceptronCount;
@@ -114,9 +114,16 @@ for (int i = 1; i <= globalPredictorSize; i++) {
 	else y_out3 -= weightsTable[curPerceptron4][i];
 }
 
-	  
+//RECENCY ENDS
 
-
+//RECENCY POS 
+int y_out4 = weightsTable[curPerceptron][0];
+int curPerceptron5 = hash_recencypos(tid, branch_addr, depth) % perceptronCount;
+for (int i = 1; i <= globalPredictorSize; i++) {
+	if ((thread_history >> (i - 1)) & 1)
+	  y_out4 += weightsTable[curPerceptron5][i];
+	else y_out4 -= weightsTable[curPerceptron5][i];
+}
 //RECENCY POS ENDS
 
  //int y_out_avg = (y_out + y_out1 + y_out2)/3;
@@ -132,7 +139,7 @@ if (abs(y_out) > abs(y_out1)) {
 }
 
 if (y_out3 > y_out_avg) y_out_avg = y_out3;
-
+if (y_out4 > y_out_avg) y_out_avg = y_out4;
 /*
 bool prediction;
 bool a = (y_out >=  0);
@@ -241,6 +248,17 @@ NeuroBP::update(ThreadID tid, Addr branch_addr, bool taken,
 	else y_out3 -= weightsTable[curPerceptron4][i];
 }
 
+//RECENCY POS
+int y_out4 = weightsTable[curPerceptron][0];
+  int curPerceptron5 = hash_recencypos(tid, branch_addr, depth) % perceptronCount;
+
+  for (int i = 1; i <= globalPredictorSize; i++) {
+	if ((thread_history >> (i - 1)) & 1)
+	  y_out4 += weightsTable[curPerceptron5][i];
+	else y_out4 -= weightsTable[curPerceptron5][i];
+}
+
+
 //int y_out_avg = (y_out + y_out1 + y_out2)/3 ;
   int y_out_avg;
 
@@ -254,6 +272,7 @@ if (abs(y_out) > abs(y_out1)) {
 }
 
 if (y_out3 > y_out_avg) y_out_avg = y_out3;
+if (y_out4 > y_out_avg) y_out_avg = y_out4;
 
   // If this is a misprediction, restore the speculatively
   // updated state (global history register and local history)
@@ -281,6 +300,10 @@ if (y_out3 > y_out_avg) y_out_avg = y_out3;
       		  weightsTable[curPerceptron4][i]    += 1;
       	  else weightsTable[curPerceptron4][i] -= 1;
    
+     	  if (((thread_history >> (i - 1)) & 1) == taken)
+      		  weightsTable[curPerceptron5][i]    += 1;
+      	  else weightsTable[curPerceptron5][i] -= 1;
+
     }
     for(int i = 0; i < 256; i++)
     { 	
@@ -341,6 +364,20 @@ unsigned NeuroBP::hash_recency(ThreadID tid, int depth) {
 			return x;	
 	}
 //RECENCY POS ENDS
+unsigned NeuroBP::hash_recencypos(ThreadID tid, unsigned pc, int depth) {
+			
+for (int i=0; i<depth; i++) {
+			if (recency_stack[i] == pc) return i;
+		}
+
+		// return last index in table on a miss
+
+		return depth-1;
+
+
+	}
+
+
 
 //INSERT RECENCY
 void NeuroBP::insert_recency (ThreadID tid, unsigned pc) {

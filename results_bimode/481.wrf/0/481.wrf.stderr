@@ -1,4 +1,0 @@
-STOP wrf_abort
- -------------- FATAL CALLED ---------------
- module_ra_rrtm: error reading unit   10                                         
- -------------------------------------------

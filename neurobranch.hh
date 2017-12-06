@@ -78,6 +78,7 @@ public:
   //void theta_setting(ThreadID tid, bool correct, int a);  
  void insert_recency (ThreadID tid, unsigned pc);
 unsigned hash_recency(ThreadID tid, int depth) ;
+unsigned hash_recencypos(ThreadID tid, unsigned pc, int depth) ;
 
 private:
   /** Updates global history as taken. */
