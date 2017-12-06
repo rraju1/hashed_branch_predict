@@ -1,0 +1,15 @@
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 compiled Dec  5 2017 11:40:29
+gem5 started Dec  5 2017 11:45:21
+gem5 executing on hellokitty-6, pid 291788
+command line: /research/rraju2/ece752/gem5/build/ARM/gem5.opt /research/rraju2/ece752/gem5/configs/example/se.py --cpu-type=O3_ARM_v7a_3 --caches --l2cache --mem-size=2GB --cpu-clock=2GHz --sys-clock=2GHz --maxinsts=1000000000 --fast-forward=1000000000 --cmd=456.hmmer '--options=--fixed 0 --mean 425 --num 85000 --sd 300 --seed 0 leng100.hmm' --output=456.hmmer.stdout --errout=456.hmmer.stderr
+
+info: Standard input is not a terminal, disabling listeners.
+Global frequency set at 1000000000000 ticks per second
+Switch at instruction count:1000000000
+Switched CPUS @ tick 544942212000
+switching cpus
+**** REAL SIMULATION ****
+Exiting @ tick 807836083000 because a thread reached the max instruction count

@@ -1,0 +1,55 @@
+000 (365.005.000) 12/05 11:45:19 Job submitted from host: <128.104.190.61:58455?addrs=128.104.190.61-58455>
+...
+001 (365.005.000) 12/05 11:45:20 Job executing on host: <128.104.190.58:56194?addrs=128.104.190.58-56194>
+...
+006 (365.005.000) 12/05 11:45:28 Image size of job updated: 93248
+	14  -  MemoryUsage of job (MB)
+	14076  -  ResidentSetSize of job (KB)
+...
+006 (365.005.000) 12/05 11:50:28 Image size of job updated: 2276216
+	753  -  MemoryUsage of job (MB)
+	770864  -  ResidentSetSize of job (KB)
+...
+006 (365.005.000) 12/05 11:55:28 Image size of job updated: 2283144
+	760  -  MemoryUsage of job (MB)
+	777728  -  ResidentSetSize of job (KB)
+...
+006 (365.005.000) 12/05 12:00:29 Image size of job updated: 2284528
+	761  -  MemoryUsage of job (MB)
+	779048  -  ResidentSetSize of job (KB)
+...
+006 (365.005.000) 12/05 12:05:30 Image size of job updated: 2285068
+	762  -  MemoryUsage of job (MB)
+	779840  -  ResidentSetSize of job (KB)
+...
+006 (365.005.000) 12/05 12:10:30 Image size of job updated: 2288564
+	766  -  MemoryUsage of job (MB)
+	783376  -  ResidentSetSize of job (KB)
+...
+006 (365.005.000) 12/05 12:20:32 Image size of job updated: 2288696
+	766  -  MemoryUsage of job (MB)
+	783640  -  ResidentSetSize of job (KB)
+...
+006 (365.005.000) 12/05 12:25:32 Image size of job updated: 2290208
+	767  -  MemoryUsage of job (MB)
+	784960  -  ResidentSetSize of job (KB)
+...
+006 (365.005.000) 12/05 12:30:32 Image size of job updated: 2290208
+	768  -  MemoryUsage of job (MB)
+	785464  -  ResidentSetSize of job (KB)
+...
+005 (365.005.000) 12/05 15:04:04 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 03:17:55, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 03:17:55, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated
+	   Cpus                 :                 1         1
+	   Disk (KB)            :      175      175 111269383
+	   Memory (MB)          :      768        1      2002
+...
