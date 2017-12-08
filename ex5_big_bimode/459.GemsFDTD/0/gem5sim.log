@@ -1,0 +1,51 @@
+000 (370.003.000) 12/07 16:02:23 Job submitted from host: <128.104.190.61:58455?addrs=128.104.190.61-58455>
+...
+001 (370.003.000) 12/07 16:02:24 Job executing on host: <128.104.190.16:14003?addrs=128.104.190.16-14003>
+...
+006 (370.003.000) 12/07 16:02:32 Image size of job updated: 85884
+	30  -  MemoryUsage of job (MB)
+	30192  -  ResidentSetSize of job (KB)
+...
+006 (370.003.000) 12/07 16:07:32 Image size of job updated: 2240992
+	85  -  MemoryUsage of job (MB)
+	86552  -  ResidentSetSize of job (KB)
+...
+006 (370.003.000) 12/07 16:27:34 Image size of job updated: 2241388
+	86  -  MemoryUsage of job (MB)
+	87104  -  ResidentSetSize of job (KB)
+...
+006 (370.003.000) 12/07 16:32:35 Image size of job updated: 2241520
+	86  -  MemoryUsage of job (MB)
+	87120  -  ResidentSetSize of job (KB)
+...
+006 (370.003.000) 12/07 16:52:36 Image size of job updated: 2242180
+	87  -  MemoryUsage of job (MB)
+	88936  -  ResidentSetSize of job (KB)
+...
+006 (370.003.000) 12/07 16:57:36 Image size of job updated: 2242180
+	87  -  MemoryUsage of job (MB)
+	88964  -  ResidentSetSize of job (KB)
+...
+006 (370.003.000) 12/07 17:27:40 Image size of job updated: 2242180
+	87  -  MemoryUsage of job (MB)
+	88984  -  ResidentSetSize of job (KB)
+...
+006 (370.003.000) 12/07 18:07:44 Image size of job updated: 2242180
+	87  -  MemoryUsage of job (MB)
+	88988  -  ResidentSetSize of job (KB)
+...
+005 (370.003.000) 12/07 20:22:53 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 04:20:16, Sys 0 00:00:01  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 04:20:16, Sys 0 00:00:01  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated
+	   Cpus                 :                 1         1
+	   Disk (KB)            :      175      175  12112527
+	   Memory (MB)          :       87        1      2012
+...

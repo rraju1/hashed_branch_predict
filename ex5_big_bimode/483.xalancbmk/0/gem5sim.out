@@ -1,0 +1,15 @@
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 compiled Dec  5 2017 11:40:29
+gem5 started Dec  7 2017 16:02:26
+gem5 executing on hellokitty-4, pid 358164
+command line: /research/rraju2/ece752/gem5/build/ARM/gem5.opt /research/rraju2/ece752/gem5/configs/example/se.py --cpu-type=ex5_big --fast-forward=1000000000 --caches --l2cache --mem-size=2GB --cpu-clock=2GHz --sys-clock=2GHz --maxinsts=1000000000 --cmd=483.xalancbmk '--options=-v allbooks.xml xalanc.xsl' --output=483.xalancbmk.stdout --errout=483.xalancbmk.stderr
+
+info: Standard input is not a terminal, disabling listeners.
+Global frequency set at 1000000000000 ticks per second
+Switch at instruction count:1000000000
+Switched CPUS @ tick 672851589000
+switching cpus
+**** REAL SIMULATION ****
+Exiting @ tick 1365164610000 because a thread reached the max instruction count

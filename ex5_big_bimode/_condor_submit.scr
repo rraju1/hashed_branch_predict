@@ -1,0 +1,289 @@
+
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/462.libquantum/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/462.libquantum/0
+output = /research/rraju2/ece752/ex5_big_bimode/462.libquantum/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/462.libquantum/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/462.libquantum/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/471.omnetpp/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/471.omnetpp/0
+output = /research/rraju2/ece752/ex5_big_bimode/471.omnetpp/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/471.omnetpp/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/471.omnetpp/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/410.bwaves/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/410.bwaves/0
+output = /research/rraju2/ece752/ex5_big_bimode/410.bwaves/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/410.bwaves/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/410.bwaves/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/459.GemsFDTD/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/459.GemsFDTD/0
+output = /research/rraju2/ece752/ex5_big_bimode/459.GemsFDTD/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/459.GemsFDTD/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/459.GemsFDTD/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/429.mcf/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/429.mcf/0
+output = /research/rraju2/ece752/ex5_big_bimode/429.mcf/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/429.mcf/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/429.mcf/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/416.gamess/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/416.gamess/0
+output = /research/rraju2/ece752/ex5_big_bimode/416.gamess/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/416.gamess/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/416.gamess/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/454.calculix/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/454.calculix/0
+output = /research/rraju2/ece752/ex5_big_bimode/454.calculix/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/454.calculix/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/454.calculix/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/444.namd/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/444.namd/0
+output = /research/rraju2/ece752/ex5_big_bimode/444.namd/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/444.namd/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/444.namd/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/434.zeusmp/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/434.zeusmp/0
+output = /research/rraju2/ece752/ex5_big_bimode/434.zeusmp/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/434.zeusmp/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/434.zeusmp/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/470.lbm/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/470.lbm/0
+output = /research/rraju2/ece752/ex5_big_bimode/470.lbm/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/470.lbm/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/470.lbm/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/458.sjeng/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/458.sjeng/0
+output = /research/rraju2/ece752/ex5_big_bimode/458.sjeng/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/458.sjeng/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/458.sjeng/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/403.gcc/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/403.gcc/0
+output = /research/rraju2/ece752/ex5_big_bimode/403.gcc/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/403.gcc/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/403.gcc/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/453.povray/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/453.povray/0
+output = /research/rraju2/ece752/ex5_big_bimode/453.povray/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/453.povray/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/453.povray/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/483.xalancbmk/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/483.xalancbmk/0
+output = /research/rraju2/ece752/ex5_big_bimode/483.xalancbmk/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/483.xalancbmk/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/483.xalancbmk/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/436.cactusADM/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/436.cactusADM/0
+output = /research/rraju2/ece752/ex5_big_bimode/436.cactusADM/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/436.cactusADM/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/436.cactusADM/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/481.wrf/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/481.wrf/0
+output = /research/rraju2/ece752/ex5_big_bimode/481.wrf/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/481.wrf/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/481.wrf/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/456.hmmer/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/456.hmmer/0
+output = /research/rraju2/ece752/ex5_big_bimode/456.hmmer/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/456.hmmer/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/456.hmmer/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/450.soplex/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/450.soplex/0
+output = /research/rraju2/ece752/ex5_big_bimode/450.soplex/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/450.soplex/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/450.soplex/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/437.leslie3d/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/437.leslie3d/0
+output = /research/rraju2/ece752/ex5_big_bimode/437.leslie3d/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/437.leslie3d/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/437.leslie3d/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/401.bzip2/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/401.bzip2/0
+output = /research/rraju2/ece752/ex5_big_bimode/401.bzip2/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/401.bzip2/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/401.bzip2/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/465.tonto/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/465.tonto/0
+output = /research/rraju2/ece752/ex5_big_bimode/465.tonto/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/465.tonto/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/465.tonto/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/464.h264ref/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/464.h264ref/0
+output = /research/rraju2/ece752/ex5_big_bimode/464.h264ref/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/464.h264ref/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/464.h264ref/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/435.gromacs/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/435.gromacs/0
+output = /research/rraju2/ece752/ex5_big_bimode/435.gromacs/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/435.gromacs/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/435.gromacs/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
+executable = /bin/sh
+arguments = /research/rraju2/ece752/ex5_big_bimode/473.astar/0/job.sh
+initialdir = /research/rraju2/ece752/ex5_big_bimode/473.astar/0
+output = /research/rraju2/ece752/ex5_big_bimode/473.astar/0/gem5sim.out
+error = /research/rraju2/ece752/ex5_big_bimode/473.astar/0/gem5sim.err
+log = /research/rraju2/ece752/ex5_big_bimode/473.astar/0/gem5sim.log
+Rank=TARGET.Mips
+universe = vanilla
+Requirements = (Machine != "iris-40.ece.wisc.edu")
+getenv = true
+queue
+    
