@@ -1,0 +1,12 @@
+warn: DRAM device capacity (8192 Mbytes) does not match the address range assigned (2048 Mbytes)
+warn: Sockets disabled, not accepting gdb connections
+info: Entering event queue @ 0.  Starting simulation...
+info: Increasing stack size by one page.
+info: Increasing stack size by one page.
+info: Entering event queue @ 740355829000.  Starting simulation...
+warn: User mode does not have SPSR
+warn: User mode does not have SPSR
+info: Entering event queue @ 740355829500.  Starting simulation...
+info: Increasing stack size by one page.
+info: Increasing stack size by one page.
+warn: User mode does not have SPSR
